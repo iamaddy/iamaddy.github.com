@@ -48,3 +48,6 @@
 .container .name{
 	margin-left: 14px;
 }
+.child{
+	margin: 5px 0;
+}
