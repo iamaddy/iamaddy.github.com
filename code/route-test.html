@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1.0, maximum-scale=1, user-scalable=no"/>
+<script src="./js/zepto.js"></script>
+<script src="/js/util/artTemplate.js"></script>
+</head>
+<body>
+	<ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#/page1?a=1&b=1">Page 1</a></li>
+    <li><a href="#/page2?a=2&b=4">Page 2</a></li>
+</ul>
+<div id="view"></div>
+	<script type='text/html' id="home">
+	    <h1>Router HAHA!</h1>
+	</script>
+
+	<script type="text/html" id="template1">
+	    <h1>Page 1: <%= greeting %></h1>
+	    <p><%= moreText %></p>
+	</script>
+
+	<script type='text/html' id="template2">
+	    <h1>Page 2: <%= heading %></h1>
+	    <p>Lorem ipsum...</p>
+	</script>
+	<script>
+	function Router(){
+		this.routers = {};
+		this.root = '';
+		this.storage = {};
+	}
+	Router.prototype = {
+		constructor: Router,
+		addRouter: function(path, controller){
+			this.routers[path] = {controller: controller};
+		},
+		start: function(){
+			window.addEventListener('hashchange', $.proxy(this.route, this));
+		},
+		route: function(){
+			var urlParams = this._parseParams()
+		    var router = this.routers[this.root] || {};   
+		    if(router.controller){
+		        router.controller(urlParams, this.store(location.hash));
+		    }
+		},
+		_parseParams: function(){
+			var hash, root, paramStr, params = {};
+			hash = location.hash.slice(1) || '/';
+			root = hash.split(/\?+/);
+			if(root.length > 1){
+				paramStr = root[1];
+			}
+			this.root = root[0];
+			try{
+				if(paramStr){
+					var temp = paramStr.split('&');
+					var keyValue;
+					for(var i = 0; i < temp.length; i++){
+						if(temp[i].length < 1) continue;
+						keyValue = temp[i].split('=');
+						params[keyValue[0]] = keyValue[1];
+					}
+				}
+			}catch(e){console.log('params error');}
+			return params
+		},
+		addHashParams: function(params){
+			var hash = location.hash;
+			for(var key in params){
+				if(hash.indexOf(key + '=') > -1){
+					hash.replace('')
+				}else{
+					hash.indexOf += '&'+key+'='+params[key];
+				}
+			}
+			location.hash = hash;
+		},
+		store: function(key, value){
+			if(!key) return null;
+			if(!value) return this.storage[key] || null;
+			this.storage[key] = value;
+			return value;
+		}
+	};
+	var router = new Router();
+	router.addRouter('/', function(){});
+	router.addRouter('/page1', function(){
+		var data = {
+	    	greeting: 'Hello world!',
+	    	moreText: 'Bacon ipsum...'
+	    };
+	    var html = template('template1', data);
+	    router.store(location.hash, html); 
+	    $('#view').html(html);
+	    console.log(arguments);
+	});
+	router.addRouter('/page2', function(){
+	    $('#view').html(template('template2', {heading: 'I\'m page two!'}));
+	    console.log(arguments);
+	});
+	router.start();
+	</script>
+</body>
+</html>
