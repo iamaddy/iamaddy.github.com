@@ -1,0 +1,57 @@
+
+<h3 class="note-title">减少重复劳动：node之初体验</h3>
+<p>自node横空出世来，业界充满了各种流言，众说纷纭。在性能方面，高并发方面如数家珍的对nodec称赞不已。但公司的业务在node上的尝试却很少，一来是新的东西，需要探索，稳定性有待考验；二来，既然已经有成熟的框架，而且能够轻车路熟的用起来，为何就要选择node。而node对大多数后台的开发来说语法上就是一道屏障，虽然屏障浅显，但对C++的依赖不愿去尝试新的东西，说白了node没让他们看到革命性的东西，就不必大费周章的去学新的东西了。</p>
+<p>但对前端的开发就不一样了，整天就在javascript中捣腾，能换个环境来捣腾就更有用武之地了，像是从此翻身了，不被后台同学开不起，我也能够搞多线程，我也能够做高并发等等。语言上的统一导致了全栈工程师，从前走到后一竿子捅到底。这也算是一点好处吧，分工所带来的坏处与好处在《国富论》中讲的很明白。从个人发展上来讲，既要有深度又要有广度。深度让老板觉得你专业，广度让老板觉得你靠谱。话又扯远了，回到node吧。</p>
+<p>在日常工作中，作为前端，每天都有跟各种页面打交道。为了SEO呢，有些页面必须做成静态的，不能用javascript来渲染，数据有后台来生成，这就是传统的方式。有时候模板经常编码，而前端却老是需求敲命令去生成新的页面，很麻烦。有时候不会linux的前端更是头疼了，有不有办法可以省去生成页面这步了？办法当然是有的，让程序自己去跑。</p>
+<p>C++应该也能够做到，但作为前端，C++用的很蹩脚。所以就那node来写一个自动的生成页面的脚本。原理是这样的：</p>
+<ul>
+<li>node启动一个server，监听模块文件</li>
+<li>一旦模板发送变化，调用命令生成页面</li>
+</ul>
+<p>node提供的一个接口：</p>
+<pre class="hljs-dark"><code class="hljs css"><span class="hljs-tag">fs</span><span class="hljs-class">.watchFile</span>(<span class="hljs-tag">filename</span>, <span class="hljs-attr_selector">[options]</span>, <span class="hljs-tag">listener</span>)
+</code></pre>
+<p>同时改变的文件可能有多个，需要一个队列，依次处理。<br>通过启用一个子进程来生成页面：</p>
+<pre class="hljs-dark"><code class="hljs javascript">  <span class="hljs-keyword">var</span> cp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
+  <span class="hljs-comment">//exec</span>
+  cp.exec(<span class="hljs-string">'xxxx make template'</span>,{}<span class="hljs-comment">/*options, [optiona]l*/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, stdout, stderr)</span></span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stdout: '</span> + stdout);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stderr: '</span> + stderr);
+  })
+</code></pre>
+<p>执行上面的程序遇到一个错误，报了个异常<code>maxBuffer exceeded</code>，后来发现是options的问题，exec的默认options是：</p>
+<pre class="hljs-dark"><code class="hljs css"><span class="hljs-rules">{ 
+    <span class="hljs-rule"><span class="hljs-attribute">encoding</span>:<span class="hljs-value"> <span class="hljs-string">'utf8'</span>,
+    timeout: <span class="hljs-number">0</span>, <span class="hljs-comment">/*子进程最长执行时间 */</span>
+    maxBuffer: <span class="hljs-number">200</span>*<span class="hljs-number">1024</span>,  <span class="hljs-comment">/*stdout和stderr的最大长度*/</span>
+    killSignal: <span class="hljs-string">'SIGTERM'</span>,
+    cwd: null,
+    env: null
+  </span></span></span>}
+</code></pre>
+<p>将maxBuffer的值改大一些即可。在执行程序的过程中需要写一些日志，以方便定位问题，写文件的接口如下：</p>
+<pre class="hljs-dark"><code class="hljs javascript"><span class="hljs-comment">// 追加文件的方式写文件，可参考node的api</span>
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+fs.open(<span class="hljs-string">"a.txt"</span>, <span class="hljs-string">"a+"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, fd)</span></span>{
+    <span class="hljs-keyword">var</span> writeBuffer = <span class="hljs-keyword">new</span> Buffer(<span class="hljs-string">'make xxx file success'</span>)
+    fs.write(fd, writeBuffer, <span class="hljs-number">0</span>, writeBuffer.length, <span class="hljs-literal">null</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>);
+        fs.close(fd);
+    });
+});
+</code></pre>
+<p>在linux客户端执行<code>node make.js</code>就能监听文件，开始生成页面了，当客户端关闭时，该进程就关闭了。引起需要让起作为一个后台进程运行，也可作为守护进程运行。可以有已下两种方式</p>
+<pre class="hljs-dark"><code class="hljs nginx"><span class="hljs-title">nohup</span> node make.js &amp;
+</code></pre>
+<pre class="hljs-dark"><code class="hljs sql">sudo npm <span class="hljs-operator"><span class="hljs-keyword">install</span> forever -g
+//使用forever启动守护进程：
+forever <span class="hljs-keyword">start</span> <span class="hljs-keyword">server</span>.js
+// 关闭守护进程：
+forever <span class="hljs-keyword">stop</span> <span class="hljs-keyword">server</span>.js
+// 如果需要记录输出日志和错误：
+forever <span class="hljs-keyword">start</span> -l forever.<span class="hljs-keyword">log</span> -o out.<span class="hljs-keyword">log</span> -e err.<span class="hljs-keyword">log</span> <span class="hljs-keyword">server</span>.js</span>
+</code></pre>
+<p>这样一来，一旦模板文件变化就能生成页面了，虽说不能大大的提高效率，但也能节省一些时间。一旦一件事需要重复的做三次以上，我们就要考虑是不是应该让程序来做，这样工作的心情也会更愉悦些。</p>
+<blockquote>
+<p>参考：<br><a href="http://yangchunhe.iteye.com/blog/1568073" target="_blank">http://yangchunhe.iteye.com/blog/1568073</a><br><a href="http://nodeapi.ucdok.com/#/api/" target="_blank">http://nodeapi.ucdok.com/#/api/</a><br><a href="http://deadhorse.me/nodejs/2011/12/18/nodejs%E4%B8%ADchild_process%E6%A8%A1%E5%9D%97%E7%9A%84exec%E6%96%B9%E6%B3%95%E5%92%8Cspawn%E6%96%B9%E6%B3%95.html" target="_blank">http://deadhorse.me/nodejs/2011/12/18/nodejs%E4%B8%ADchild_process%E6%A8%A1%E5%9D%97%E7%9A%84exec%E6%96%B9%E6%B3%95%E5%92%8Cspawn%E6%96%B9%E6%B3%95.html</a></p>
+</blockquote>
