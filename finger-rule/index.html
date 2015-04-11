@@ -1,0 +1,33 @@
+<!doctype html>
+<html manifest="finger-rule.manifest">
+<head>
+<meta charset="utf-8">
+<title>指间距</title>
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1.0, maximum-scale=1, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-startup-image" href="./img/start.png">
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="./img/start548.png">
+<link rel="apple-touch-icon-precomposed" href="./img/rule.png"/>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body class="">
+	<div id="main">
+		<canvas id="canvas" width="320" height="480"></canvas>
+		<div id="result" class="result_vert"></div>
+		<img id="help" class="help_vert" src="./img/help.png" />
+		<div id="help_panel" class="help_panel_vert hide">
+			<h2>指间距</h2>
+			<div class="panel_body">
+				测量手指比划距离的工具，两手指放在屏幕上，即会显示出两手指之间的长度，单位为厘米。
+			</div>
+			<div class="panel_footer">2015 <a href="http://iamaddy.net">iamaddy.net</a></div>
+		</div>
+		<div id="help_panel_mark" class="hide"></div>
+	</div>
+	<!-- <div id="noIphone"><strong>手尺</strong>是一个专门为iphone/itouch开发的web app，请使用iphone/itouch访问。</div> -->
+	<!-- <div id="noStandalone">请点击下方的“+”按钮把本应用添加至主屏幕，这样可以全屏运行此app，并且可以离线使用。</div> -->
+
+	<script type="text/javascript" src="./js/app.js"></script>
+</body>
+</html>
