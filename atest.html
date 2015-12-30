@@ -9,7 +9,7 @@
         <meta name="format-detection" content="telephone=no">
         <!-- <link rel="stylesheet" href="speed/lib/css/font-awesome.css" /> -->
         <!-- <link rel="stylesheet" href="speed/lib/css/modal.css" /> -->
-        <script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js"></script>
+
     </head>
     <style>
     .btn{
@@ -26,98 +26,34 @@
     <input type="button" class="btn" id="openApp4" value="跳转回点评">
     </body>
     <script>        
-
     </script>
 </html>
 <!-- a标签的链接，设置为对应的下载链接；点击打开的动作，在click事件中注册 -->
-
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 <script type="text/javascript">
+    window.wx.config({
+        beta: true, // 必填，开启内测接口调用，注入wx.invoke和wx.on方法
+        debug: false, // 选填，开启调试模式，默认为false不开启
+        appId: 'wx0de8b608027788a5',  // 必填，公众号的唯一标识
+        timestamp: '', // 必填，生成签名的时间戳
+        nonceStr: '', // 必填，生成签名的随机串
+        signature: '',// 必填，签名，详见微信JS-SDK说明文档http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html 
+        jsApiList: ['getInstallState', 'launch3rdApp', 'shareTimeline', 'shareWeibo', 'sendAppMessage', 'shareQQ', 'shareQZone', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'] // 必填，需要使用的jsapi列表
+    });
+
     function tryToOpenApp(downloadUrl) {
-        var g_sSchema = "sybapp:\/\/";
-        var g_sDownload = downloadUrl || '/app/syb/download/download.html';
-        var g_sUA = navigator.userAgent.toLowerCase();
-        var android = g_sUA.match(/(android)\s+([\d.]+)/);
-        var ios = g_sUA.match(/(ipad|iphone|ipod).*os\s([\d_]+)/);
-        var isAndroid = !!android;
-        var isIos = !!ios;
-        var div, tid, startTime;
-        
-        //创建iframe，呼起app schema
-        startTime = Date.now(); //标记呼起时间点
-        div = document.createElement('div');
-        div.style.visibility = 'hidden';
-        div.innerHTML = "<iframe id=\"schema\" src=\"" + g_sSchema + "\" scrolling=\"no\" width=\"1\" height=\"1\"></iframe>";
-        document.body.appendChild(div);
-        //如果成功呼起，setTimeout不会立即执行
-        tid = setTimeout(function(){
-            //如果没有呼起，或者呼起后，用户主动返回，还是有可能走进这个逻辑
-            var delta = Date.now() - startTime;  //然后判断回来的时间戳
-            console.log(delta);
-            if(delta < 950){  //如果不是我们规定的800ms，差太多，就认为是用户手动返回的, 不跳下载
-                location.href = g_sDownload;   //否则跳下载
-            }
-        }, 900);
-        /*
-        注意：在app的webview中呼起自身的情况不适用于这套解决方案，因为app没有被挂起，js还会继续执行，setTimeout无效。
-        */
-    };
+        wx.ready(function () {
+            wx.invoke('launch3rdApp', {
+                "appID": 'wx0de8b608027788a5',
+                "messageExt": "from=weixin_webview",
+                "extInfo": "from=weixin_webview"
+            }, function(res) {
+                alert(JSON.stringify(res))
+            });
+        });
+    }
+    
     document.getElementById('openApp').onclick = function(e){
         tryToOpenApp();
     };
-    function parseUrlFunc(url) {
-    if (url.indexOf("{") >= 0) {
-        var reg = new RegExp("\{[^\}]+\}", "g");
-        var r = url.match(reg);
-        if (r != null) {
-            for (var i = 0; i < r.length; i++) {
-                var name = getUrlParam(r[i].substring(1, r[i].length - 1));
-                if (name != null) {
-                    url = url.replace(r[i], name);
-                }
-            }
-        }
-    }
-    return url;
-}
-
-function getUrlParam(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
-}
-function processUrlFunc(url) {
-    var result = parseUrlFunc(url);
-    if (result.indexOf("dianping:\/\/") >= 0) {
-        var reg = new RegExp("url=[^&]+", "g");
-        var r = result.match(reg);
-        if (r != null) {
-            var urlStr = escape(parseUrlFunc(unescape(r[0].substring(4))));
-            result = result.replace(r[0], "url=" + urlStr);
-        }
-    }
-    return result;
-}
-var openLink_1 = "dianping://web?url=http%3A%2F%2Fh5.dianping.com%2Ftuan%2Factivitymain%2Fdny-user%2Findex.html%3Futm_source%3D__50ct&utm_=__50ct";
-    
-    $(function(){
-        openLink_1 = processUrlFunc(openLink_1);
-        // alert(openLink_1);
-        $("#openApp2").click(function(){
-            setTimeout(function() {
-            window.location = "easyhinresume1797://web?url=http://dev.api.easyhin.com/p/webapp/event/20151216/index.html";
-        }, 50);
-        });
-        $("#openApp4").click(function(){
-            setTimeout(function() {
-            window.location = openLink_1;
-            }, 50);
-        });
-        $("#openApp3").click(function(){
-            div = document.createElement('div');
-            div.style.visibility = 'hidden';
-            div.innerHTML = '<iframe id="schema" src="easyhinresume1797://url="http://dev.api.easyhin.com/p/webapp/event/20151216/index.html" scrolling="no" width="1" height="1"></iframe>';
-            document.body.appendChild(div);
-        }, 50);
-    });
 </script>
