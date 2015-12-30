@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <title>账单</title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <!-- <link rel="stylesheet" href="speed/lib/css/font-awesome.css" /> -->
+        <!-- <link rel="stylesheet" href="speed/lib/css/modal.css" /> -->
+        <script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js"></script>
+    </head>
+    <style>
+    .btn{
+        width:100%;
+        height:50px;
+        margin:50px 0;
+    }
+    </style>
+    <body>
+    
+    <input type="button" class="btn" id="openApp" value="跳转回APP1">
+    <input type="button" class="btn" id="openApp2" value="跳转回APP2">
+    <input type="button" class="btn" id="openApp3" value="跳转回APP3">
+    <input type="button" class="btn" id="openApp4" value="跳转回点评">
+    </body>
+    <script>        
+
+    </script>
+</html>
+<!-- a标签的链接，设置为对应的下载链接；点击打开的动作，在click事件中注册 -->
+
+<script type="text/javascript">
+    document.getElementById('openApp').onclick = function(e){
+        // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+        // 否则打开a标签的href链接
+        var ifr = document.createElement('iframe');
+        ifr.src = 'easyhinresume1797://';
+        ifr.style.display = 'none';
+        document.body.appendChild(ifr);
+        window.setTimeout(function(){
+            document.body.removeChild(ifr);
+        },3000)
+    };
+    function parseUrlFunc(url) {
+    if (url.indexOf("{") >= 0) {
+        var reg = new RegExp("\{[^\}]+\}", "g");
+        var r = url.match(reg);
+        if (r != null) {
+            for (var i = 0; i < r.length; i++) {
+                var name = getUrlParam(r[i].substring(1, r[i].length - 1));
+                if (name != null) {
+                    url = url.replace(r[i], name);
+                }
+            }
+        }
+    }
+    return url;
+}
+
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+function processUrlFunc(url) {
+    var result = parseUrlFunc(url);
+    if (result.indexOf("dianping:\/\/") >= 0) {
+        var reg = new RegExp("url=[^&]+", "g");
+        var r = result.match(reg);
+        if (r != null) {
+            var urlStr = escape(parseUrlFunc(unescape(r[0].substring(4))));
+            result = result.replace(r[0], "url=" + urlStr);
+        }
+    }
+    return result;
+}
+var openLink_1 = "dianping://web?url=http%3A%2F%2Fh5.dianping.com%2Ftuan%2Factivitymain%2Fdny-user%2Findex.html%3Futm_source%3D__50ct&utm_=__50ct";
+    
+    $(function(){
+        openLink_1 = processUrlFunc(openLink_1);
+        // alert(openLink_1);
+        $("#openApp2").click(function(){
+            setTimeout(function() {
+            window.location = "easyhinresume1797://web?url=http://dev.api.easyhin.com/p/webapp/event/20151216/index.html";
+        }, 50);
+        });
+        $("#openApp4").click(function(){
+            setTimeout(function() {
+            window.location = openLink_1;
+            }, 50);
+        });
+        $("#openApp3").click(function(){
+            div = document.createElement('div');
+            div.style.visibility = 'hidden';
+            div.innerHTML = '<iframe id="schema" src="easyhinresume1797://url="http://dev.api.easyhin.com/p/webapp/event/20151216/index.html" scrolling="no" width="1" height="1"></iframe>';
+            document.body.appendChild(div);
+        }, 50);
+    });
+</script>
