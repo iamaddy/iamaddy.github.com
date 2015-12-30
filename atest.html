@@ -32,16 +32,37 @@
 <!-- a标签的链接，设置为对应的下载链接；点击打开的动作，在click事件中注册 -->
 
 <script type="text/javascript">
+    function tryToOpenApp(downloadUrl) {
+        var g_sSchema = "easyhinresume1797:\/\/";
+        var g_sDownload = downloadUrl || '/app/syb/download/download.html';
+        var g_sUA = navigator.userAgent.toLowerCase();
+        var android = g_sUA.match(/(android)\s+([\d.]+)/);
+        var ios = g_sUA.match(/(ipad|iphone|ipod).*os\s([\d_]+)/);
+        var isAndroid = !!android;
+        var isIos = !!ios;
+        var div, tid, startTime;
+        
+        //创建iframe，呼起app schema
+        startTime = Date.now(); //标记呼起时间点
+        div = document.createElement('div');
+        div.style.visibility = 'hidden';
+        div.innerHTML = "<iframe id=\"schema\" src=\"" + g_sSchema + "\" scrolling=\"no\" width=\"1\" height=\"1\"></iframe>";
+        document.body.appendChild(div);
+        //如果成功呼起，setTimeout不会立即执行
+        tid = setTimeout(function(){
+            //如果没有呼起，或者呼起后，用户主动返回，还是有可能走进这个逻辑
+            var delta = Date.now() - startTime;  //然后判断回来的时间戳
+            console.log(delta);
+            if(delta < 950){  //如果不是我们规定的800ms，差太多，就认为是用户手动返回的, 不跳下载
+                location.href = g_sDownload;   //否则跳下载
+            }
+        }, 900);
+        /*
+        注意：在app的webview中呼起自身的情况不适用于这套解决方案，因为app没有被挂起，js还会继续执行，setTimeout无效。
+        */
+    };
     document.getElementById('openApp').onclick = function(e){
-        // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
-        // 否则打开a标签的href链接
-        var ifr = document.createElement('iframe');
-        ifr.src = 'easyhinresume1797://';
-        ifr.style.display = 'none';
-        document.body.appendChild(ifr);
-        window.setTimeout(function(){
-            document.body.removeChild(ifr);
-        },3000)
+        tryToOpenApp();
     };
     function parseUrlFunc(url) {
     if (url.indexOf("{") >= 0) {
