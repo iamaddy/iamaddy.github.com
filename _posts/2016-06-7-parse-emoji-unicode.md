@@ -5,9 +5,9 @@ category: blog
 description: 踩踩emoji乱码的坑，SoftBank编码emoji。
 ---
 
-##那些年我们踩过的乱码坑
+## 那些年我们踩过的乱码坑
 
-###前言
+### 前言
 这是一个由乱码引发的故事。抱歉我暂时找不到更加惨烈的图，请相信我，还有更目不忍视的画面。请看下图那些框框，那都是些什么鬼！这是要害死强迫症吗？如果同时看到几十个框，简直让人崩溃。
 ![Alt text](./ZY~2D7TVB1_]`5~6~9$@T.png)
 
@@ -26,7 +26,7 @@ ASCII码一共规定了128个字符的编码，比如大写的字母A是65（二
 
 **因此导致乱码的真正原因：就是各平台间对Unicode标准实现不一致（包括实现的时间先后不同，以及Unicode所代表含义不同）。**
 
-###编码分析
+### 编码分析
 
 那框框的Unicode编码到底是什么呢？`charCodeAt() `（这个方法有局限性，后面说）方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。
 ```
@@ -56,7 +56,7 @@ ASCII码一共规定了128个字符的编码，比如大写的字母A是65（二
 
 事实证明，确实没错。那么既然是emoji表情，为什么iphone（9.3.1）都不能正常解析？这编码又是怎么被用户输入进去的？
 
-###emoji表情
+### emoji表情
 说到emoji，那我们先来扒一扒emoji的历史故事。
 
 emoji表情源于日本，叫做绘（e=图）文字（moji=字符）。
@@ -95,8 +95,8 @@ emoji表情源于日本，叫做绘（e=图）文字（moji=字符）。
 上面四个编码落入的区域也是在（U+E000–U+F8FF）内，然后根据上面的网站查询，可以确认是来自SoftBank标准的emoji表情了。
 
 所以只要替换这些编码就好了。
-
-###解决方案
+ 
+### 解决方案
 
 也就是说**SoftBank emoji表情现在的系统基本不支持**，因为已经过时了。
 
@@ -138,7 +138,7 @@ code 对应emoji图标的classID，用雪碧图。
 
 综上，结合方案一二，在Android版本小于4.4的时候采用方案二，其他采用方案一。
 
-###结果
+### 结果
 （左边为处理前，右边为处理后）
 ![Alt text](./p.png)
 
@@ -151,7 +151,7 @@ code 对应emoji图标的classID，用雪碧图。
 ![Alt text](./ios.png)
 
 
-###总结
+### 总结
 问题来了，如果遇到了其他编码标准（google， DoCoMo，KDDI 等等）的表情该怎么办？如果没有Unicode的与符号的映射关系真是白搭，你丝毫没有办法。就像你不学习英文单词，你还想看懂英文文章？
 
 
@@ -161,20 +161,20 @@ emoji表情不断在丰富，这也给前端（各种终端）工作者带来麻
 
 **参考资料**
 
-https://codepoints.net
-http://www.unicode.org/faq/private_use.html#pua1
-http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
-http://blog.csdn.net/binjly/article/details/47321043
-http://computerism.ru/emoji-smiles.htm
-http://www.ruanyifeng.com/blog/2014/12/unicode.html
-http://blog.csdn.net/ugg/article/details/44225723
-https://github.com/iamcal/js-emoji
-https://github.com/node-modules/emoji
-http://www.fileformat.info/info/emoji/softbank.htm
-http://caniemoji.com
-http://www.easyapns.com/iphone-emoji-alerts
-https://en.wikipedia.org/wiki/Emoji
-https://mathiasbynens.be/notes/javascript-unicode
+https://codepoints.net   
+http://www.unicode.org/faq/private_use.html#pua1   
+http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html   
+http://blog.csdn.net/binjly/article/details/47321043   
+http://computerism.ru/emoji-smiles.htm   
+http://www.ruanyifeng.com/blog/2014/12/unicode.html   
+http://blog.csdn.net/ugg/article/details/44225723   
+https://github.com/iamcal/js-emoji   
+https://github.com/node-modules/emoji   
+http://www.fileformat.info/info/emoji/softbank.htm   
+http://caniemoji.com   
+http://www.easyapns.com/iphone-emoji-alerts   
+https://en.wikipedia.org/wiki/Emoji   
+https://mathiasbynens.be/notes/javascript-unicode   
 
 
 
