@@ -58,5 +58,12 @@ define('editor',["avalon"], function(avalon) {
     avalon.bind($('post_input'),'keyup',function(e){
     	saveSelection();
     });
+
+    avalon.bind($('post_input'),'focus',function(e){
+        saveSelection();
+    });
+    avalon.bind($('post_input'),'blur',function(e){
+        saveSelection();
+    });
     return {insertImage:insertImage};
 });
