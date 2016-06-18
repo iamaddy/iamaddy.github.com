@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src='seed-min.js'></script>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+#post_input{
+	padding: 5px;
+	border: 1px solid red;
+	height: 300px;
+	width: 700px;
+}
+</style>
+</head>
+<body>
+	<div id='post_input' contenteditable='true'></div>
+	<button id='insertImg'>insertImg</button>
+	<script type="text/javascript">
+		require('editor',function(editor){
+			avalon.bind($('insertImg'),'click',function(e){
+				//editor.insertImage("<img src='1.jpeg'>");
+				editor.insertImage('1.jpeg');
+			});
+		});
+	</script>
+</body>
+</html>
