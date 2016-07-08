@@ -23,7 +23,7 @@ define('editor',["avalon"], function(avalon) {
     function saveSelection() {
     	currentRange = getCurrentRange();
         if(currentRange){
-            $('#title').html(currentRange.endOffset);
+            $('title').html(currentRange.endOffset);
         }
     }
     function restoreSelection() {
