@@ -45,6 +45,7 @@
 						var text = document.createTextNode(this.getSingleEmojiText(QQ_FACE_2_TEXT[+index]));
 						this.editor.selection.insertNode(text);
 					}
+					this.editor.inputContentElement.blur();
 				}
 			}).bind(this), false);
 		},
