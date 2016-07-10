@@ -74,7 +74,9 @@
 			div.innerHTML = '<img src="' + file + '" /><span class="delete">x</span>';
 			
 			this.viewUI = div;
-
+			if(this.config.editor.getContent() === ''){
+				this.config.editor.selection.insertNode(document.createElement('br'));
+			}
 			this.config.editor.selection.insertNode(div);
 			
 			this.config.editor.selection.insertNode(document.createElement('br'));
