@@ -127,10 +127,10 @@ var btn = document.getElementById('j_video_div');
 // ....
 ```
 上面是编译后的代码，`__webpack_require__.e`是异步加载的function，1表示chunkid，被分割出来的代码块的名称（1_chunk.js）。
-![Alt text](./IG4[`SBLLQ8OD817JUW6KA.jpg)
+![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg)
 
 发布之后
-![Alt text](./屏幕快照 2016-06-05 下午12.17.29.png)
+![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/7.png)
 
 当然我们可以拆分更多的代码块，这将有益于性能优化。简单灵活的做到模块化、按需加载，这简直就是利器。
 
@@ -194,7 +194,7 @@ app/
 - gulpfile.js、webpack.config.js 为配置文件，初始化项目的时候已经生成。
 
 现在一个项目的资源都在一起，原来的项目结构是html和js分离，所有js在一起。我想弊端不言而喻。
-![Alt text](./屏幕快照 2016-06-15 下午3.15.07.png)
+![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/5.png)
 
 目录结构清晰，项目本身的扩展性也强，我们可以灵活引入别人项目的组件。借助现有的基础组件和轮子，完成一个新的需求可节省大量时间。
 
