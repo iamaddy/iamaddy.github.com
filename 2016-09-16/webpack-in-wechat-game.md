@@ -11,7 +11,7 @@
 经过一番改造后，只需要三个gulp命令来支撑。新流程爽的让大家不要不要的。
 
 **初始化**
-![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/0.png)
+![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/0.png =250x)
 
 **开发**
 ![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/1.png)
