@@ -127,7 +127,7 @@ var btn = document.getElementById('j_video_div');
 // ....
 ```
 上面是编译后的代码，`__webpack_require__.e`是异步加载的function，1表示chunkid，被分割出来的代码块的名称（1_chunk.js）。   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.png" height="100">
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg" height="100">
 
 
 发布之后   
@@ -142,10 +142,10 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 为什么用了webpack还要gulp？理由是gulp比webpack更擅长完成构建任务（task），而个人认为webpack在模块化代码分块方面更加擅长。因为构建不只是模块化而已，HTML还要内嵌资源，还要自动发布脚本，还要监听上传等等。
 
 
-编写gulp插件以支持我们的工程化任务，下图是我们的工程流，每个方块都是gulp的一个task：
+编写gulp插件以支持我们的工程化任务，下图是我们的工程流，每个方块都是gulp的一个task：   
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/11.png" height="180">
 以上是我们发布的流程，只要在项目的根路径下执行命令`gulp release`。
-当然，还有一个`gulp watch`命令对于开发的流程：   
+当然，还有一个`gulp watch`命令对于开发的流程：      
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/12.png" height="100">
 那么基本只要这两个命令即可满足开发工程化的需要。当然在没有项目的时候也有一个命令，`gulp init -p projectName`，初始化一个项目，所有的配置都初始化好，脚手架搭建好了，剩下的就是开开心心的去撸代码。
 
