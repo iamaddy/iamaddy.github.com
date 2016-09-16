@@ -135,7 +135,9 @@ head.appendChild(script);
 var Video = __webpack_require__(17);
 var btn = document.getElementById('j_video_div');
 // ....
-```
+
+```    
+
 上面是编译后的代码，`__webpack_require__.e`是异步加载的function，1表示chunkid，被分割出来的代码块的名称（1_chunk.js）。   
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg" height="100">   
 
@@ -145,8 +147,10 @@ var btn = document.getElementById('j_video_div');
 
 当然我们可以拆分更多的代码块，这将有益于性能优化。简单灵活的做到模块化、按需加载，这简直就是利器。
 
-现在可以为seajs/requirejs立起一块墓碑了。
-####gulp
+现在可以为seajs/requirejs立起一块墓碑了。   
+
+####gulp    
+
 webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
 为什么用了webpack还要gulp？理由是gulp比webpack更擅长完成构建任务（task），而个人认为webpack在模块化代码分块方面更加擅长。因为构建不只是模块化而已，HTML还要内嵌资源，还要自动发布脚本，还要监听上传等等。
@@ -165,7 +169,8 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 - 页面本身的代码量不是很多，可以考虑内嵌。
 - CGI请求提前，可以单独内嵌ajax请求代码到html头部。
 
-内嵌资源的实现借鉴了fis，如果有资源url含`?__inline`查询参数，则把资源内嵌到页面。
+内嵌资源的实现借鉴了fis，如果有资源url含`?__inline`查询参数，则把资源内嵌到页面。   
+
 ```
 <link rel="styleSheet" href="../css/index.css?__inline" />
 <script src="../js/index.js?__inline"></script>
@@ -173,7 +178,8 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
 
 
-#### 项目目录
+#### 项目目录   
+
 在这里有必要说下项目的目录：
 
 ```
