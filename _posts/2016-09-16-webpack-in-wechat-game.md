@@ -75,7 +75,8 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/10.png" height="150">
 >一切皆模块
 
-**第一点，webpack很好的解决了我们模块化/组件化的需求。**
+**第一点，webpack很好的解决了我们模块化/组件化的需求。**   
+
 ```
 // moduleA
 var tpl = require('html!../tpl/topic.html');
@@ -93,7 +94,8 @@ module.exports = {
 ```
 四种资源都能够灵活的被require，可以满足组件化的需求，模块化/组件化的目的：**复用、可维护**。
 
-**第二点，webpack支持同步和异步。**
+**第二点，webpack支持同步和异步。**   
+
 ```
 // 同步
 require('moduleA');
@@ -102,7 +104,8 @@ require.ensure([], function () {
    	var ModuleB = require('moduleB');
 });
 ```
-webpack的模块加载原理很简单，**为每个模块编号，放入数组中**
+webpack的模块加载原理很简单，**为每个模块编号，放入数组中**   
+
 ```
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -116,7 +119,8 @@ module.exports = __webpack_require__(5);
 ```
 这是webpack编译之后的代码，\__webpack_require__替换了原来的require，而模块名已经变成了数组序号。
 
-异步的原理也很简单：
+异步的原理也很简单：   
+
 
 ```
 // more
@@ -124,7 +128,8 @@ module.exports = __webpack_require__(5);
 script.src = __webpack_require__.p + "" + chunkId + "../test/js/" + ({"1":"index"}[chunkId]||chunkId) + ".js";
 head.appendChild(script);
 ```
-这是异步模块的src路径，webpack构建后生成的，最终通过appendChild方法将script异步加载。(`__webpack_require__.p`为CDN的根路径）
+这是异步模块的src路径，webpack构建后生成的，最终通过appendChild方法将script异步加载。(`__webpack_require__.p`为CDN的根路径）   
+
 ```
  __webpack_require__.e/* nsure */(1, function(require){
 var Video = __webpack_require__(17);
