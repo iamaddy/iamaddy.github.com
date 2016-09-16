@@ -70,7 +70,8 @@
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/10.png" height="150">
 >一切皆模块
 
-**第一点，webpack很好的解决了我们模块化/组件化的需求。**
+**第一点，webpack很好的解决了我们模块化/组件化的需求。**    
+
 ```
 // moduleA
 var tpl = require('html!../tpl/topic.html');
@@ -85,10 +86,12 @@ img.src = require('../img/example.png');
 module.exports = {
 	...
 }
-```
+```   
+
 四种资源都能够灵活的被require，可以满足组件化的需求，模块化/组件化的目的：**复用、可维护**。
 
-**第二点，webpack支持同步和异步。**
+**第二点，webpack支持同步和异步。**   
+
 ```
 // 同步
 require('moduleA');
