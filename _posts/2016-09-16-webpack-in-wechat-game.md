@@ -35,7 +35,7 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 
 欲知详情，且听我慢慢道来。
 
-###青铜时代
+###青铜时代   
 来到项目组的时候，对于当时前端的作业方式表示有点吃惊。从我以前的[这篇文章](http://www.iamaddy.net/2015/04/front-end-engineering/)看来，之前项目已经基本达到工程化的目的，无论是模块化还是自动化基本满足了高效开发部署的需要。而现在，从黄金时代一下子回到青铜时代，有点无所适从。前端流程如下：   
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/9.png" height="100">
 
