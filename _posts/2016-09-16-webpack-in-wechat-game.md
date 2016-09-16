@@ -35,11 +35,13 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 
 欲知详情，且听我慢慢道来。
 
-###青铜时代   
+###青铜时代
+
 来到项目组的时候，对于当时前端的作业方式表示有点吃惊。从我以前的[这篇文章](http://www.iamaddy.net/2015/04/front-end-engineering/)看来，之前项目已经基本达到工程化的目的，无论是模块化还是自动化基本满足了高效开发部署的需要。而现在，从黄金时代一下子回到青铜时代，有点无所适从。前端流程如下：   
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/9.png" height="100">
 
 以前的流程有以下槽点：
+
 - config文件（又臭又长）需要人工维护，每新增一个文件，需要**手动**添加配置
 - 统一在开发机构建，每个人都在消耗开发机的资源，不可控因素多，**慢、不稳定**等等
 - release后的文件没有hash化，每次都得**手动**修改html引用
@@ -70,9 +72,12 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 - 资源文件分包不灵活，需要人工配置
 
 那么在组内的一番讨论，有选gulp的，有选grunt的，也有fis，当然还有webpack。最终的方案是gulp+webpack。
+
 #### webpack
+
 为模块而生。如果对webpack陌生，我觉得可以直接看看[官网](https://webpack.github.io/)了解，一张图也足以说明到底能够做什么：   
 <img src="http://iamaddy.github.io/img/webpack-in-wechat-game/10.png" height="150">
+
 >一切皆模块
 
 **第一点，webpack很好的解决了我们模块化/组件化的需求。**   
@@ -149,7 +154,7 @@ var btn = document.getElementById('j_video_div');
 
 现在可以为seajs/requirejs立起一块墓碑了。   
 
-####gulp    
+####gulp 
 
 webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
@@ -178,7 +183,7 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
 
 
-#### 项目目录   
+#### 项目目录
 
 在这里有必要说下项目的目录：
 
