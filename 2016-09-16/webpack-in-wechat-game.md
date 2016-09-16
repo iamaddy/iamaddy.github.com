@@ -10,14 +10,14 @@
 
 经过一番改造后，只需要三个gulp命令来支撑。新流程爽的让大家不要不要的。
 
-**初始化**
-![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/0.png =250x)
+**初始化**   
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/0.png" height="100">
 
-**开发**
-![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/1.png)
+**开发**   
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/1.png" height="100">
 
-**发布**
-![Alt text](http://iamaddy.github.io/img/webpack-in-wechat-game/2.png)
+**发布**   
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/2.png" height="300">
 
 剩下的流程就是走发单系统，同步HTML文件到测试环境，测试完毕，则发布到外网。
 
