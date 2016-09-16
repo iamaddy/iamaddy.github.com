@@ -1,3 +1,10 @@
+---
+layout:     post
+title:      webpack在微信游戏前端中的运用
+category: blog
+description: 在微信游戏前端项目中，运用webpack多页面构建打包
+---
+
 ##webpack在微信游戏前端中的运用
 
 
