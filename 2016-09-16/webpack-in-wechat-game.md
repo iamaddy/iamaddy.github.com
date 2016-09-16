@@ -100,7 +100,8 @@ require.ensure([], function () {
    	var ModuleB = require('moduleB');
 });
 ```
-webpack的模块加载原理很简单，**为每个模块编号，放入数组中**
+webpack的模块加载原理很简单，**为每个模块编号，放入数组中**   
+
 ```
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -122,7 +123,8 @@ module.exports = __webpack_require__(5);
 script.src = __webpack_require__.p + "" + chunkId + "../test/js/" + ({"1":"index"}[chunkId]||chunkId) + ".js";
 head.appendChild(script);
 ```
-这是异步模块的src路径，webpack构建后生成的，最终通过appendChild方法将script异步加载。(`__webpack_require__.p`为CDN的根路径）
+这是异步模块的src路径，webpack构建后生成的，最终通过appendChild方法将script异步加载。(`__webpack_require__.p`为CDN的根路径）    
+
 ```
  __webpack_require__.e/* nsure */(1, function(require){
 var Video = __webpack_require__(17);
