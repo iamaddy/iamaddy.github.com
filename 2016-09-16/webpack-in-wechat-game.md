@@ -127,11 +127,11 @@ var btn = document.getElementById('j_video_div');
 // ....
 ```
 上面是编译后的代码，`__webpack_require__.e`是异步加载的function，1表示chunkid，被分割出来的代码块的名称（1_chunk.js）。   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg" height="100">
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg" height="100">   
 
 
 发布之后   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/7.png" height="100">
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/7.png" height="100">   
 
 当然我们可以拆分更多的代码块，这将有益于性能优化。简单灵活的做到模块化、按需加载，这简直就是利器。
 
@@ -143,10 +143,10 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
 
 编写gulp插件以支持我们的工程化任务，下图是我们的工程流，每个方块都是gulp的一个task：   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/11.png" height="180">
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/11.png" height="180">   
 以上是我们发布的流程，只要在项目的根路径下执行命令`gulp release`。
 当然，还有一个`gulp watch`命令对于开发的流程：      
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/12.png" height="100">
+<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/12.png" height="100">   
 那么基本只要这两个命令即可满足开发工程化的需要。当然在没有项目的时候也有一个命令，`gulp init -p projectName`，初始化一个项目，所有的配置都初始化好，脚手架搭建好了，剩下的就是开开心心的去撸代码。
 
 在完成gulp的task时，我们也自定义了一些插件：
