@@ -4,6 +4,7 @@
 <script type="text/javascript">
    function formfocus() {
       document.getElementById('element').focus();
+      alert(("autofocus" in document.createElement("input")))
    }
    window.onload = formfocus;
 </script>
