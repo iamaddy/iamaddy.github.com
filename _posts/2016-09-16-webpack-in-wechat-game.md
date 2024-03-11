@@ -16,13 +16,13 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 经过一番改造后，只需要三个gulp命令来支撑。新流程爽的让大家不要不要的。
 
 **初始化**   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/0.png" height="100">
+<img src="/img/webpack-in-wechat-game/0.png" height="100">
 
 **开发**   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/1.png" height="100">
+<img src="/img/webpack-in-wechat-game/1.png" height="100">
 
 **发布**   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/2.png" height="300">
+<img src="/img/webpack-in-wechat-game/2.png" height="300">
 
 剩下的流程就是走发单系统，同步HTML文件到测试环境，测试完毕，则发布到外网。
 
@@ -31,14 +31,14 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 新的流程到底是怎样的呢？
 
 优化后的整体流程如下：   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/8.png" height="300">
+<img src="/img/webpack-in-wechat-game/8.png" height="300">
 
 欲知详情，且听我慢慢道来。
 
 ### 青铜时代
 
 来到项目组的时候，对于当时前端的作业方式表示有点吃惊。从我以前的[这篇文章](http://www.iamaddy.net/2015/04/front-end-engineering/)看来，之前项目已经基本达到工程化的目的，无论是模块化还是自动化基本满足了高效开发部署的需要。而现在，从黄金时代一下子回到青铜时代，有点无所适从。前端流程如下：   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/9.png" height="100">
+<img src="/img/webpack-in-wechat-game/9.png" height="100">
 
 以前的流程有以下槽点：
 
@@ -77,7 +77,7 @@ description: 在微信游戏前端项目中，运用webpack多页面构建打包
 #### webpack
 
 为模块而生。如果对webpack陌生，我觉得可以直接看看[官网](https://webpack.github.io/)了解，一张图也足以说明到底能够做什么：   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/10.png" height="150">
+<img src="/img/webpack-in-wechat-game/10.png" height="150">
 
 >一切皆模块
 
@@ -145,11 +145,11 @@ var btn = document.getElementById('j_video_div');
 ```    
 
 上面是编译后的代码，`__webpack_require__.e`是异步加载的function，1表示chunkid，被分割出来的代码块的名称（1_chunk.js）。   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/6.jpg" height="100">   
+<img src="/img/webpack-in-wechat-game/6.jpg" height="100">   
 
 
 发布之后   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/7.png" height="100">   
+<img src="/img/webpack-in-wechat-game/7.png" height="100">   
 
 当然我们可以拆分更多的代码块，这将有益于性能优化。简单灵活的做到模块化、按需加载，这简直就是利器。
 
@@ -163,10 +163,10 @@ webpack可以压缩，可以md5化脚本、可以做许多工程化的事情。
 
 
 编写gulp插件以支持我们的工程化任务，下图是我们的工程流，每个方块都是gulp的一个task：   
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/11.png" height="180">   
+<img src="/img/webpack-in-wechat-game/11.png" height="180">   
 以上是我们发布的流程，只要在项目的根路径下执行命令`gulp release`。
 当然，还有一个`gulp watch`命令对于开发的流程：      
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/12.png" height="100">   
+<img src="/img/webpack-in-wechat-game/12.png" height="100">   
 那么基本只要这两个命令即可满足开发工程化的需要。当然在没有项目的时候也有一个命令，`gulp init -p projectName`，初始化一个项目，所有的配置都初始化好，脚手架搭建好了，剩下的就是开开心心的去撸代码。
 
 在完成gulp的task时，我们也自定义了一些插件：
@@ -220,7 +220,7 @@ app/
 - gulpfile.js、webpack.config.js 为配置文件，初始化项目的时候已经生成。
 
 现在一个项目的资源都在一起，原来的项目结构是html和js分离，所有js在一起。我想弊端不言而喻。
-<img src="http://iamaddy.github.io/img/webpack-in-wechat-game/5.png" height="200">
+<img src="/img/webpack-in-wechat-game/5.png" height="200">
 
 
 目录结构清晰，项目本身的扩展性也强，我们可以灵活引入别人项目的组件。借助现有的基础组件和轮子，完成一个新的需求可节省大量时间。
