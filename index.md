@@ -6,7 +6,7 @@ layout: default
   <div class="index-wrapper">
     <div class="aside">
       <div class="info-card">
-        <h1>addy</h1>
+        <h1>入门游戏开发</h1>
       </div>
       <div id="particles-js"></div>
     </div>
